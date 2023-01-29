@@ -1,0 +1,31 @@
+# Make sure read and write github workflow permissions are allowed: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository
+# Use Github Action secret env "EMAIL" with our email to commit properly
+name: Daily Script
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies & Run Script
+      run: |
+        pip install requests
+        pip install -r requirements.txt
+        python Quote-Scraper.py
+    - name: Commit changes
+      run: |
+        git config --local user.email "${{ secrets.EMAIL }}"
+        git config --local user.name "CY83R-3X71NC710N"
+        git add **
+        git commit -m "Update quote csv data"
+        git push
+      env:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
