@@ -1,2 +1,2 @@
 # Quote-Scraper
-Scrapes Quotes from http://quotes.toscrape.com
+Scrapes Quotes from http://quotes.toscrape.com and exports them to a csv file updated every 5 minutes
