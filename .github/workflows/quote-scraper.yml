@@ -18,6 +18,7 @@ jobs:
     - name: Install dependencies & Run Script
       run: |
         pip install requests
+        pip install BeautifulSoup4
         pip install -r requirements.txt
         python Quote-Scraper.py
     - name: Commit changes
