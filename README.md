@@ -1,2 +1,2 @@
 # Quote-Scraper
-Scrapes Quotes
+Scrapes Quotes from http://quotes.toscrape.com
