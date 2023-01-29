@@ -1,0 +1,27 @@
+# Create PAT and EMAIL Secret
+
+name: Create an issue on commit
+
+on:
+  schedule:
+    - cron: '*/60 * * * *'
+    
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Configure git user email and name
+        run: |
+           git config --local user.email "${{ secrets.EMAIL }}"
+           git config --local user.name "${{ secrets.GITHUB_ACTOR }}"     
+      - name: Create an issue
+        uses: actions-ecosystem/action-create-issue@v1
+        with:
+          github_token: ${{ secrets.pat_token }}
+          title: Hour Check-In
+          body: What the errors we have encountered with the project during this hour? If none you can close this issue
+          name: ${{ secrets.NAME }}
+          email: ${{ secrets.EMAIL }}
+          as: user
