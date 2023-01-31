@@ -17,6 +17,7 @@ def save_to_csv(quote, recursion_limit=5):
         reader = csv.reader(file)
         quotes_in_file = [row[0] for row in reader]
     if quote in quotes_in_file:
+        recursion_limit -= 1
         if recursion_limit == 0:
             raise Exception("Recursion limit reached")
         return False
@@ -28,7 +29,6 @@ def save_to_csv(quote, recursion_limit=5):
 while True:
     try:
         random_quote = get_random_quote()
-        print(random_quote)
         success = save_to_csv(random_quote)
         if success:
             break
