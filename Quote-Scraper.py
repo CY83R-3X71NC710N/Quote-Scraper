@@ -12,13 +12,15 @@ def get_random_quote():
     quote = random.choice(quotes)
     return quote.find(class_='text').get_text() + ' - ' + quote.find(class_='author').get_text()
 
-def save_to_csv(quote):
+def save_to_csv(quote, recursion_limit=5):
     with open('quotes.csv', mode='r') as file:
         reader = csv.reader(file)
         quotes_in_file = [row[0] for row in reader]
     if quote in quotes_in_file:
+        if recursion_limit == 0:
+            raise Exception("Recursion limit reached")
         random_quote = get_random_quote()
-        save_to_csv(random_quote)
+        save_to_csv(random_quote, recursion_limit-1)
         return
     with open('quotes.csv', mode='a') as file:
         writer = csv.writer(file)
