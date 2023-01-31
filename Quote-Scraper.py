@@ -19,16 +19,20 @@ def save_to_csv(quote, recursion_limit=5):
     if quote in quotes_in_file:
         if recursion_limit == 0:
             raise Exception("Recursion limit reached")
-        return
+        return False
     with open('quotes.csv', mode='a') as file:
         writer = csv.writer(file)
         writer.writerow([quote])
+    return True
 
-try:
-    random_quote = get_random_quote()
-    print(random_quote)
-    save_to_csv(random_quote)
-except requests.exceptions.RequestException as e:
-    print(f"Request failed: {e}")
-except Exception as e:
-    print(f"An error occurred: {e}")
+while True:
+    try:
+        random_quote = get_random_quote()
+        print(random_quote)
+        success = save_to_csv(random_quote)
+        if success:
+            break
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
