@@ -17,6 +17,8 @@ def save_to_csv(quote):
         reader = csv.reader(file)
         quotes_in_file = [row[0] for row in reader]
     if quote in quotes_in_file:
+        random_quote = get_random_quote()
+        save_to_csv(random_quote)
         return
     with open('quotes.csv', mode='a') as file:
         writer = csv.writer(file)
