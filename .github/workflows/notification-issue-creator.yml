@@ -23,4 +23,3 @@ jobs:
           name: ${{ secrets.NAME }}
           email: ${{ secrets.EMAIL }}
           as: user
-Give feedback
