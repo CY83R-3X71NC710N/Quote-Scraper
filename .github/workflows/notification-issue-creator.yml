@@ -3,7 +3,7 @@ name: Create an issue every 7 days to check in and reflect
 on:
   schedule:
     - cron: '0 0 */7 * *'
-
+  workflow_dispatch:
 jobs:
   create_issue:
     runs-on: ubuntu-latest
